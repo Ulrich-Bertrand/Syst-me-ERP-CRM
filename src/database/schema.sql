@@ -12,26 +12,48 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- ========================================
 
 CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+ id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email VARCHAR(255) UNIQUE NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  nom VARCHAR(255) NOT NULL,
+  prenom VARCHAR(255) NOT NULL,
+  telephone VARCHAR(255) NOT NULL,
   agence VARCHAR(50) NOT NULL CHECK (agence IN ('GHANA', 'COTE_IVOIRE', 'BURKINA')),
   
-  -- Profils
+   -- Profils Achats
   profile_purchases_create BOOLEAN DEFAULT false,
   profile_purchases_validate_level_1 BOOLEAN DEFAULT false,
   profile_purchases_validate_level_2 BOOLEAN DEFAULT false,
   profile_purchases_validate_level_3 BOOLEAN DEFAULT false,
+  profile_purchases_manage_po BOOLEAN DEFAULT false,
+  profile_purchases_manage_invoices BOOLEAN DEFAULT false,
+  profile_purchases_manage_payments BOOLEAN DEFAULT false,
   profile_purchases_payment BOOLEAN DEFAULT false,
-  profile_stock_manage BOOLEAN DEFAULT false,
   profile_invoices_validate BOOLEAN DEFAULT false,
+
+  -- Profils Stock
+  profile_stock_manage BOOLEAN DEFAULT false,
+  profile_stock_view BOOLEAN DEFAULT false,
+
+  -- Profils Dossiers / Cotations
+  profile_dossiers_manage BOOLEAN DEFAULT false,
+  profile_cotations_manage BOOLEAN DEFAULT false,
+
+  -- Profils Finance / Reporting
+  profile_finance_view BOOLEAN DEFAULT false,
   profile_reporting_view BOOLEAN DEFAULT false,
-  
+
+  -- Statut
   active BOOLEAN DEFAULT true,
+  is_admin BOOLEAN DEFAULT false,
+
+   -- Dates
+  last_login TIMESTAMP DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
 
 -- Index
 CREATE INDEX idx_users_email ON users(email);

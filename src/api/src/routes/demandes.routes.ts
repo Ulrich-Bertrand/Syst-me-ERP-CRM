@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { DemandesController } from '../controllers/demandes.controller';
-import { authMiddleware } from '../middlewares/auth.middleware';
-import { validateRequest } from '../middlewares/validation.middleware';
+import { DemandesController } from '../controllers/__demandes.controller';
+import { authenticateJWT } from '../middlewares/auth.middleware';
+import { validate } from '../middlewares/validation.middleware';
 import { createDemandeSchema, updateDemandeSchema } from '../validators/demandes.validator';
 
 const router = Router();
 const controller = new DemandesController();
 
 // Toutes les routes nécessitent authentification
-router.use(authMiddleware);
+router.use(authenticateJWT);
 
 /**
  * @route   GET /api/demandes
@@ -40,7 +40,7 @@ router.get('/:id', controller.getById);
  */
 router.post(
   '/',
-  validateRequest(createDemandeSchema),
+  validate(createDemandeSchema),
   controller.create
 );
 
@@ -51,7 +51,7 @@ router.post(
  */
 router.put(
   '/:id',
-  validateRequest(updateDemandeSchema),
+  validate(updateDemandeSchema),
   controller.update
 );
 

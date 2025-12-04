@@ -597,7 +597,7 @@ export default function LoginPage() {
 ```typescript
 // /components/ProtectedRoute.tsx
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export function ProtectedRoute({ children }) {
   const router = useRouter();

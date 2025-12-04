@@ -144,7 +144,7 @@ export default function HomePage() {
   label: 'Demandes d\'achat',
   href: '/achats/demandes',
   badge: '12',
-  requiredProfile: 'profile_purchases_create_da'
+  requiredProfile: 'profile_purchases_create'
 }
 // → Affiché uniquement si user a ce profil
 ```
@@ -308,7 +308,7 @@ Layout affiche :
 **Sidebar** :
 - Logo JOCYDERK
 - Menus avec permissions :
-  - Si `profile_purchases_create_da` → Affiche "Demandes d'achat"
+  - Si `profile_purchases_create` → Affiche "Demandes d'achat"
   - Si `profile_purchases_validate_level_1` → Affiche "Validations"
   - Sinon → Menu masqué
 
@@ -337,7 +337,7 @@ Page /achats/demandes
   ↓
 ProtectedRoute vérifie :
   - isAuthenticated? ✅
-  - hasProfile('profile_purchases_create_da')? ✅
+  - hasProfile('profile_purchases_create')? ✅
   ↓
 Affiche page demandes (TODO: à créer)
 ```
@@ -345,7 +345,7 @@ Affiche page demandes (TODO: à créer)
 **Si pas le profil** :
 ```
 ProtectedRoute vérifie :
-  - hasProfile('profile_purchases_create_da')? ❌
+  - hasProfile('profile_purchases_create')? ❌
   ↓
 router.push('/unauthorized')
   ↓

@@ -127,7 +127,7 @@ class DemandesService {
         u.prenom as demandeur_prenom,
         (SELECT COUNT(*) FROM lignes_demande_achat WHERE demande_achat_id = da.id) as nombre_lignes
       FROM demandes_achat da
-      LEFT JOIN utilisateurs u ON da.demandeur_id = u.id
+      LEFT JOIN users u ON da.demandeur_id = u.id
       ${whereClause}
       ORDER BY da.date_demande DESC
       LIMIT ${filters.limit || 50}
@@ -160,7 +160,7 @@ class DemandesService {
         u.prenom as demandeur_prenom,
         u.email as demandeur_email
       FROM demandes_achat da
-      LEFT JOIN utilisateurs u ON da.demandeur_id = u.id
+      LEFT JOIN users u ON da.demandeur_id = u.id
       WHERE da.id = $1`,
       [id]
     );
@@ -188,7 +188,7 @@ class DemandesService {
         u.nom as validateur_nom,
         u.prenom as validateur_prenom
       FROM historique_validations hv
-      LEFT JOIN utilisateurs u ON hv.validateur_id = u.id
+      LEFT JOIN users u ON hv.validateur_id = u.id
       WHERE hv.demande_achat_id = $1
       ORDER BY hv.date_validation DESC`,
       [id]

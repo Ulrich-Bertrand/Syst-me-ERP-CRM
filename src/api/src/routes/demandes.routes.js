@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const demandesController = require('../controllers/demandes.controller');
+const demandesController = require('../controllers/__demandes.controller');
 const { authenticateJWT } = require('../middlewares/auth');
 const { requireProfile } = require('../middlewares/permissions');
 const { validate } = require('../middlewares/validation');
@@ -49,12 +49,12 @@ router.get(
 /**
  * @route POST /api/demandes
  * @desc Créer une nouvelle demande
- * @access Private - Profil "profile_purchases_create_da" requis
+ * @access Private - Profil "profile_purchases_create" requis
  */
 router.post(
   '/',
   authenticateJWT,
-  requireProfile('profile_purchases_create_da'),
+  requireProfile('profile_purchases_create'),
   validate(createDemandeSchema),
   demandesController.create
 );
@@ -67,7 +67,7 @@ router.post(
 router.put(
   '/:id',
   authenticateJWT,
-  requireProfile('profile_purchases_create_da'),
+  requireProfile('profile_purchases_create'),
   validate(updateDemandeSchema),
   demandesController.update
 );
@@ -80,7 +80,7 @@ router.put(
 router.delete(
   '/:id',
   authenticateJWT,
-  requireProfile('profile_purchases_create_da'),
+  requireProfile('profile_purchases_create'),
   validate(demandeIdSchema),
   demandesController.delete
 );
@@ -93,7 +93,7 @@ router.delete(
 router.post(
   '/:id/submit',
   authenticateJWT,
-  requireProfile('profile_purchases_create_da'),
+  requireProfile('profile_purchases_create'),
   validate(demandeIdSchema),
   demandesController.submit
 );

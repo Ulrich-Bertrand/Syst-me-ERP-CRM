@@ -12,7 +12,7 @@ class AuthService {
       `SELECT 
         id, email, password, nom, prenom, agence, telephone,
         is_admin, active,
-        profile_purchases_create_da,
+        profile_purchases_create,
         profile_purchases_validate_level_1,
         profile_purchases_validate_level_2,
         profile_purchases_validate_level_3,
@@ -24,7 +24,7 @@ class AuthService {
         profile_dossiers_manage,
         profile_cotations_manage,
         profile_finance_view
-      FROM utilisateurs 
+      FROM users 
       WHERE email = $1`,
       [email.toLowerCase()]
     );
@@ -49,7 +49,7 @@ class AuthService {
 
     // Mettre à jour last_login
     await query(
-      'UPDATE utilisateurs SET last_login = NOW() WHERE id = $1',
+      'UPDATE users SET last_login = NOW() WHERE id = $1',
       [user.id]
     );
 
@@ -74,7 +74,7 @@ class AuthService {
       `SELECT 
         id, email, nom, prenom, agence, telephone,
         is_admin, active,
-        profile_purchases_create_da,
+        profile_purchases_create,
         profile_purchases_validate_level_1,
         profile_purchases_validate_level_2,
         profile_purchases_validate_level_3,
@@ -88,7 +88,7 @@ class AuthService {
         profile_finance_view,
         last_login,
         created_at
-      FROM utilisateurs 
+      FROM users 
       WHERE id = $1`,
       [userId]
     );
@@ -126,7 +126,7 @@ class AuthService {
     values.push(userId);
 
     const result = await query(
-      `UPDATE utilisateurs 
+      `UPDATE users 
        SET ${updates.join(', ')}, updated_at = NOW()
        WHERE id = $${paramIndex}
        RETURNING id, email, nom, prenom, agence, telephone, is_admin, active`,
@@ -142,7 +142,7 @@ class AuthService {
   async changePassword(userId, oldPassword, newPassword) {
     // Récupérer mot de passe actuel
     const result = await query(
-      'SELECT password FROM utilisateurs WHERE id = $1',
+      'SELECT password FROM users WHERE id = $1',
       [userId]
     );
 
@@ -162,7 +162,7 @@ class AuthService {
 
     // Mettre à jour
     await query(
-      'UPDATE utilisateurs SET password = $1, updated_at = NOW() WHERE id = $2',
+      'UPDATE users SET password = $1, updated_at = NOW() WHERE id = $2',
       [hashedPassword, userId]
     );
 

@@ -25,7 +25,7 @@ const authenticateJWT = async (req, res, next) => {
       `SELECT 
         id, email, nom, prenom, agence, telephone,
         is_admin, active,
-        profile_purchases_create_da,
+        profile_purchases_create,
         profile_purchases_validate_level_1,
         profile_purchases_validate_level_2,
         profile_purchases_validate_level_3,
@@ -37,7 +37,7 @@ const authenticateJWT = async (req, res, next) => {
         profile_dossiers_manage,
         profile_cotations_manage,
         profile_finance_view
-      FROM utilisateurs 
+      FROM users 
       WHERE id = $1 AND active = true`,
       [decoded.userId]
     );
@@ -74,7 +74,7 @@ const optionalAuth = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       
       const result = await query(
-        'SELECT * FROM utilisateurs WHERE id = $1 AND active = true',
+        'SELECT * FROM users WHERE id = $1 AND active = true',
         [decoded.userId]
       );
       

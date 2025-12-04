@@ -78,7 +78,7 @@ router.get('/demandes', authenticateJWT, demandesController.getAll);
 **Middlewares module Achats** :
 ```typescript
 export const purchasesPermissions = {
-  canCreateDA: requireProfile('profile_purchases_create_da'),
+  canCreateDA: requireProfile('profile_purchases_create'),
   canValidateLevel1: requireProfile('profile_purchases_validate_level_1'),
   canValidateLevel2: requireProfile('profile_purchases_validate_level_2'),
   canValidateLevel3: requireProfile('profile_purchases_validate_level_3'),

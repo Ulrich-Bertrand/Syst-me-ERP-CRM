@@ -45,7 +45,7 @@ export const API_BASE_URL =
 
 **Avant** :
 ```typescript
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 ```

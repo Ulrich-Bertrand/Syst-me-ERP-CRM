@@ -145,10 +145,10 @@ L'API sera accessible sur **http://localhost:4000**
 | GET | `/` | Liste demandes | ✅ Auth |
 | GET | `/mes-demandes` | Mes demandes | ✅ Auth |
 | GET | `/:id` | Détail demande | ✅ Auth |
-| POST | `/` | Créer demande | `profile_purchases_create_da` |
-| PUT | `/:id` | Modifier demande | `profile_purchases_create_da` |
-| DELETE | `/:id` | Supprimer demande | `profile_purchases_create_da` |
-| POST | `/:id/submit` | Soumettre validation | `profile_purchases_create_da` |
+| POST | `/` | Créer demande | `profile_purchases_create` |
+| PUT | `/:id` | Modifier demande | `profile_purchases_create` |
+| DELETE | `/:id` | Supprimer demande | `profile_purchases_create` |
+| POST | `/:id/submit` | Soumettre validation | `profile_purchases_create` |
 
 ### **Validations** (`/api/validations`)
 
@@ -205,7 +205,7 @@ Content-Type: application/json
     "prenom": "John",
     "agence": "GHANA",
     "is_admin": true,
-    "profile_purchases_create_da": true,
+    "profile_purchases_create": true,
     ...
   },
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -228,7 +228,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 | Profil | Description |
 |--------|-------------|
 | `is_admin` | Administrateur (tous accès) |
-| `profile_purchases_create_da` | Créer demandes d'achat |
+| `profile_purchases_create` | Créer demandes d'achat |
 | `profile_purchases_validate_level_1` | Valider niveau 1 |
 | `profile_purchases_validate_level_2` | Valider niveau 2 |
 | `profile_purchases_validate_level_3` | Valider niveau 3 |
@@ -248,7 +248,7 @@ authenticateJWT
 requireAdmin
 
 // Profil spécifique requis
-requireProfile('profile_purchases_create_da')
+requireProfile('profile_purchases_create')
 
 // Au moins un profil requis
 requireAnyProfile(['profile_purchases_validate_level_1', 'profile_purchases_validate_level_2'])

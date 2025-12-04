@@ -105,7 +105,7 @@ router.get('/demandes-recentes', authenticateJWT, async (req, res, next) => {
         u.nom as demandeur_nom,
         u.prenom as demandeur_prenom
       FROM demandes_achat da
-      LEFT JOIN utilisateurs u ON da.demandeur_id = u.id
+      LEFT JOIN users u ON da.demandeur_id = u.id
       WHERE da.demandeur_id = $1 ${agenceFilter}
       ORDER BY da.date_demande DESC
       LIMIT $2`,

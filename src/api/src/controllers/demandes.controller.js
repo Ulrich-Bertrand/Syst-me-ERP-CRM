@@ -1,111 +1,53 @@
-const demandesService = require('../services/demandes.service');
+import service from "../services/demandes.service";
 
-class DemandesController {
-  /**
-   * GET /api/demandes
-   * Obtenir toutes les demandes (avec filtres)
-   */
-  async getAll(req, res, next) {
-    try {
-      const result = await demandesService.getAll(req.query);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
+export default {
+   async create(req, res) {
+      try {
+         const demande = await service.createDemande(req.body, req.user.id);
+         res.status(201).json({ message: "Demande créée", data: demande });
+      } catch (err) {
+         res.status(500).json({ error: err.message });
+      }
+   },
 
-  /**
-   * GET /api/demandes/:id
-   * Obtenir une demande par ID
-   */
-  async getById(req, res, next) {
-    try {
-      const demande = await demandesService.getById(req.params.id);
-      res.json(demande);
-    } catch (error) {
-      next(error);
-    }
-  }
+   async getAll(req, res) {
+      try {
+         const demandes = await service.getAllDemandes();
+         res.json(demandes);
+      } catch (err) {
+         res.status(500).json({ error: err.message });
+      }
+   },
 
-  /**
-   * POST /api/demandes
-   * Créer une nouvelle demande
-   */
-  async create(req, res, next) {
-    try {
-      const demande = await demandesService.create(req.user.id, req.body);
-      
-      res.status(201).json({
-        message: 'Demande créée avec succès',
-        data: demande
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
+   async getOne(req, res) {
+      try {
+         const data = await service.getDemandeById(req.params.id);
+         if (!data) return res.status(404).json({ message: "Demande introuvable" });
+         res.json(data);
+      } catch (err) {
+         res.status(500).json({ error: err.message });
+      }
+   },
 
-  /**
-   * PUT /api/demandes/:id
-   * Mettre à jour une demande
-   */
-  async update(req, res, next) {
-    try {
-      const demande = await demandesService.update(req.params.id, req.user.id, req.body);
-      
-      res.json({
-        message: 'Demande mise à jour avec succès',
-        data: demande
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
+   async update(req, res) {
+      try {
+         const result = await service.updateDemande(
+            req.params.id,
+            req.body,
+            req.user.id
+         );
+         res.json({ message: "Demande mise à jour", data: result });
+      } catch (err) {
+         res.status(500).json({ error: err.message });
+      }
+   },
 
-  /**
-   * DELETE /api/demandes/:id
-   * Supprimer une demande (brouillon uniquement)
-   */
-  async delete(req, res, next) {
-    try {
-      const result = await demandesService.delete(req.params.id, req.user.id);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /**
-   * POST /api/demandes/:id/submit
-   * Soumettre une demande pour validation
-   */
-  async submit(req, res, next) {
-    try {
-      const demande = await demandesService.submit(req.params.id, req.user.id);
-      
-      res.json({
-        message: 'Demande soumise pour validation',
-        data: demande
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /**
-   * GET /api/demandes/mes-demandes
-   * Obtenir les demandes de l'utilisateur connecté
-   */
-  async getMesDemandes(req, res, next) {
-    try {
-      const result = await demandesService.getAll({
-        ...req.query,
-        demandeur_id: req.user.id
-      });
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-}
-
-module.exports = new DemandesController();
+   async remove(req, res) {
+      try {
+         await service.deleteDemande(req.params.id);
+         res.json({ message: "Demande supprimée" });
+      } catch (err) {
+         res.status(500).json({ error: err.message });
+      }
+   },
+};

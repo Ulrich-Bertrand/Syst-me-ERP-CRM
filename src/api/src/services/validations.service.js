@@ -39,7 +39,7 @@ class ValidationsService {
         u.prenom as demandeur_prenom,
         (SELECT COUNT(*) FROM lignes_demande_achat WHERE demande_achat_id = da.id) as nombre_lignes
       FROM demandes_achat da
-      LEFT JOIN utilisateurs u ON da.demandeur_id = u.id
+      LEFT JOIN users u ON da.demandeur_id = u.id
       WHERE ${conditions.join(' AND ')}
       ORDER BY 
         CASE da.type
@@ -233,7 +233,7 @@ class ValidationsService {
         u.prenom as validateur_prenom,
         u.email as validateur_email
       FROM historique_validations hv
-      LEFT JOIN utilisateurs u ON hv.validateur_id = u.id
+      LEFT JOIN users u ON hv.validateur_id = u.id
       WHERE hv.demande_achat_id = $1
       ORDER BY hv.date_validation ASC`,
       [demandeId]

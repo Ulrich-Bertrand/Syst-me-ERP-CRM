@@ -113,10 +113,10 @@
 | `/` | GET | Liste demandes | ✅ | - |
 | `/mes-demandes` | GET | Mes demandes | ✅ | - |
 | `/:id` | GET | Détail demande | ✅ | - |
-| `/` | POST | Créer demande | ✅ | `profile_purchases_create_da` |
-| `/:id` | PUT | Modifier demande | ✅ | `profile_purchases_create_da` |
-| `/:id` | DELETE | Supprimer demande | ✅ | `profile_purchases_create_da` |
-| `/:id/submit` | POST | Soumettre validation | ✅ | `profile_purchases_create_da` |
+| `/` | POST | Créer demande | ✅ | `profile_purchases_create` |
+| `/:id` | PUT | Modifier demande | ✅ | `profile_purchases_create` |
+| `/:id` | DELETE | Supprimer demande | ✅ | `profile_purchases_create` |
+| `/:id/submit` | POST | Soumettre validation | ✅ | `profile_purchases_create` |
 
 **Implémentation** : ✅ COMPLÈTE (service + controller + routes + validations)
 

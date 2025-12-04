@@ -132,7 +132,7 @@ Langue: Français 🇫🇷
 ## 🔑 Profils & Permissions
 
 ### **Profils Achats**
-- `profile_purchases_create_da` - Créer demandes d'achat
+- `profile_purchases_create` - Créer demandes d'achat
 - `profile_purchases_validate_level_1` - Validation niveau 1 (Purchasing Manager)
 - `profile_purchases_validate_level_2` - Validation niveau 2 (CFO)
 - `profile_purchases_validate_level_3` - Validation niveau 3 (General Manager)

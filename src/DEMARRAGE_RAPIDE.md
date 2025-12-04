@@ -113,7 +113,7 @@ Dans le header (après connexion) :
 
 Les menus s'affichent automatiquement selon vos profils :
 
-- **profile_purchases_create_da** → Créer demandes d'achat
+- **profile_purchases_create** → Créer demandes d'achat
 - **profile_purchases_validate_level_1** → Valider niveau 1
 - **profile_purchases_validate_level_2** → Valider niveau 2
 - **profile_purchases_validate_level_3** → Valider niveau 3
@@ -320,7 +320,7 @@ localStorage.clear()
 
 **3. Menu vide**
 - Vérifier profils utilisateur
-- Au moins `profile_purchases_create_da` devrait afficher "Demandes d'achat"
+- Au moins `profile_purchases_create` devrait afficher "Demandes d'achat"
 
 ---
 

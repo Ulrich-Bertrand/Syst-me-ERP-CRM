@@ -1,3 +1,6 @@
+'use client';
+
+
 /**
  * ═══════════════════════════════════════════════════════════════
  * ACHATS VIEW - INTÉGRATION API COMPLÈTE
@@ -37,7 +40,7 @@ import {
 } from '../../types/achats-api.types';
 import { AchatsDemandeForm } from '../AchatsDemandeForm';
 import { AchatsDemandeDetail } from '../AchatsDemandeDetail';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface TooltipProps {
   text: string;
@@ -286,6 +289,9 @@ export function AchatsView({ viewType }: { viewType: string }) {
    * }
    */
   const handleNewDemande = async (formData: any) => {
+
+    // console.log(formData, ".... saving new demande here");
+    
     try {
       console.log('[AchatsView] Création demande:', formData);
       

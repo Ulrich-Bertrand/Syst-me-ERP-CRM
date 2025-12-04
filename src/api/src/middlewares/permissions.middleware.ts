@@ -81,7 +81,7 @@ export const requireAllProfiles = (profileFields: string[]) => {
  */
 export const purchasesPermissions = {
   // Créer demande d'achat
-  canCreateDA: requireProfile('profile_purchases_create_da'),
+  canCreateDA: requireProfile('profile_purchases_create'),
 
   // Valider niveau 1 (Purchasing Manager)
   canValidateLevel1: requireProfile('profile_purchases_validate_level_1'),

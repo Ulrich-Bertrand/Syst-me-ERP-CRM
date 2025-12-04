@@ -92,7 +92,7 @@ export class AuthService {
     const result = await this.db.query(
       `INSERT INTO users (
         email, password_hash, nom, prenom, agence, active,
-        profile_purchases_create_da
+        profile_purchases_create
       ) VALUES ($1, $2, $3, $4, $5, true, true)
       RETURNING *`,
       [email.toLowerCase(), passwordHash, nom, prenom, agence]

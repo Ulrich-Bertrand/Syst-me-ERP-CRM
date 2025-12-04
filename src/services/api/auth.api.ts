@@ -19,7 +19,7 @@ export interface User {
   telephone?: string;
   is_admin: boolean;
   active: boolean;
-  profile_purchases_create_da: boolean;
+  profile_purchases_create: boolean;
   profile_purchases_validate_level_1: boolean;
   profile_purchases_validate_level_2: boolean;
   profile_purchases_validate_level_3: boolean;

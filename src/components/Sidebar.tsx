@@ -1,6 +1,7 @@
+"use client"
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { 
+import { usePathname, useRouter } from 'next/navigation';
+import {
   LayoutDashboard,
   ShoppingCart,
   Package,
@@ -17,7 +18,8 @@ import {
   Calculator,
   Warehouse,
   UserCog,
-  Bell
+  Bell,
+  UserX
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -36,6 +38,9 @@ export function Sidebar() {
   const router = useRouter();
   const { hasProfile, hasAnyProfile } = useAuth();
   const [expandedMenus, setExpandedMenus] = useState<string[]>(['achats']);
+  const pathname = usePathname()
+  const basepath = `/dashboard`
+
 
   const menuItems: MenuItem[] = [
     {
@@ -57,58 +62,66 @@ export function Sidebar() {
       id: 'achats',
       label: 'Achats',
       icon: ShoppingCart,
+      href: `${basepath}/achats`,
       children: [
-        { 
-          id: 'achats-dashboard', 
-          label: 'Dashboard Achats', 
-          icon: BarChart3, 
-          href: '/achats/dashboard' 
+        {
+          id: 'achats-dashboard',
+          label: 'Dashboard Achats',
+          icon: BarChart3,
+          href: `${basepath}/achats`,
         },
-        { 
-          id: 'achats-demandes', 
-          label: 'Demandes d\'achat', 
-          icon: FileText, 
-          href: '/achats/demandes',
+        {
+          id: 'achats-demandes',
+          label: 'Demandes d\'achat',
+          icon: FileText,
+          href: `${basepath}/achats/demandes`,
           badge: '12',
-          requiredProfile: 'profile_purchases_create_da'
+          requiredProfile: 'profile_purchases_create'
         },
-        { 
-          id: 'achats-validations', 
-          label: 'Validations', 
-          icon: ChevronRight, 
-          href: '/achats/validations',
-          badge: '5',
-          requiredAnyProfile: [
-            'profile_purchases_validate_level_1',
-            'profile_purchases_validate_level_2',
-            'profile_purchases_validate_level_3'
-          ]
-        },
-        { 
-          id: 'achats-bons-commande', 
-          label: 'Bons de commande', 
-          icon: FileText, 
-          href: '/achats/bons-commande',
+        // { 
+        //   id: 'achats-validations', 
+        //   label: 'Validations', 
+        //   icon: ChevronRight, 
+        //   href: '/achats/validations',
+        //   badge: '5',
+        //   requiredAnyProfile: [
+        //     'profile_purchases_validate_level_1',
+        //     'profile_purchases_validate_level_2',
+        //     'profile_purchases_validate_level_3'
+        //   ]
+        // },
+        {
+          id: 'achats-bons-commande',
+          label: 'Bons de commande',
+          icon: FileText,
+          href: `${basepath}/achats/bons-commande`,
           requiredProfile: 'profile_purchases_manage_po'
         },
-        { 
-          id: 'achats-receptions', 
-          label: 'Réceptions', 
-          icon: Package, 
+        {
+          id: 'achats/creanciers',
+          label: 'Créanciers / Fournisseurs',
+          icon: UserX,
+          href: `${basepath}/achats/creanciers`,
+          requiredProfile: 'profile_purchases_create'
+        },
+        {
+          id: 'achats-receptions',
+          label: 'Réceptions',
+          icon: Package,
           href: '/achats/receptions',
           requiredProfile: 'profile_purchases_manage_po'
         },
-        { 
-          id: 'achats-factures', 
-          label: 'Factures fournisseurs', 
-          icon: FileText, 
+        {
+          id: 'achats-factures',
+          label: 'Factures fournisseurs',
+          icon: FileText,
           href: '/achats/factures',
           requiredProfile: 'profile_purchases_manage_invoices'
         },
-        { 
-          id: 'achats-paiements', 
-          label: 'Paiements', 
-          icon: DollarSign, 
+        {
+          id: 'achats-paiements',
+          label: 'Paiements',
+          icon: DollarSign,
           href: '/achats/paiements',
           requiredProfile: 'profile_purchases_manage_payments'
         }
@@ -117,37 +130,38 @@ export function Sidebar() {
     {
       id: 'stock',
       label: 'Stock',
+      href: `${basepath}/stock`,
       icon: Warehouse,
       children: [
-        { 
-          id: 'stock-dashboard', 
-          label: 'Dashboard Stock', 
-          icon: BarChart3, 
-          href: '/stock/dashboard' 
+        {
+          id: 'stock-dashboard',
+          label: 'Dashboard Stock',
+          icon: BarChart3,
+          href: `${basepath}/stock`,
         },
-        { 
-          id: 'stock-articles', 
-          label: 'Articles', 
-          icon: Package, 
-          href: '/stock/articles' 
+        {
+          id: 'stock-articles',
+          label: 'Articles',
+          icon: Package,
+          href: `${basepath}/stock/articles`
         },
-        { 
-          id: 'stock-mouvements', 
-          label: 'Mouvements', 
-          icon: TruckIcon, 
-          href: '/stock/mouvements' 
+        {
+          id: 'stock-mouvements',
+          label: 'Mouvements',
+          icon: TruckIcon,
+          href: `${basepath}/stock/mouvements`
         },
-        { 
-          id: 'stock-inventaires', 
-          label: 'Inventaires', 
-          icon: Calculator, 
-          href: '/stock/inventaires' 
+        {
+          id: 'stock-inventaires',
+          label: 'Inventaires',
+          icon: Calculator,
+          href: `${basepath}/stock/inventaire`
         },
-        { 
-          id: 'stock-alertes', 
-          label: 'Alertes', 
-          icon: Bell, 
-          href: '/stock/alertes',
+        {
+          id: 'stock-alertes',
+          label: 'Alertes',
+          icon: Bell,
+          href: `${basepath}/stock/alertes`,
           badge: '7'
         }
       ]
@@ -200,7 +214,7 @@ export function Sidebar() {
 
   const isActive = (href?: string) => {
     if (!href) return false;
-    return router.pathname === href || router.pathname.startsWith(href + '/');
+    return pathname === href || pathname.startsWith(href + '/');
   };
 
   const canViewMenuItem = (item: MenuItem): boolean => {
@@ -227,12 +241,12 @@ export function Sidebar() {
       return (
         <div key={item.id}>
           <button
+            type='button'
             onClick={() => toggleMenu(item.id)}
-            className={`w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-lg transition ${
-              active
+            className={`w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-lg transition ${active
                 ? 'bg-blue-50 text-blue-700'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
             style={{ paddingLeft: `${1 + level}rem` }}
           >
             <div className="flex items-center gap-3">
@@ -258,12 +272,12 @@ export function Sidebar() {
     return (
       <button
         key={item.id}
+        type='button'
         onClick={() => item.href && router.push(item.href)}
-        className={`w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-lg transition ${
-          active
+        className={`w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-lg transition ${active
             ? 'bg-blue-50 text-blue-700'
             : 'text-gray-700 hover:bg-gray-100'
-        }`}
+          }`}
         style={{ paddingLeft: `${1.5 + level}rem` }}
       >
         <div className="flex items-center gap-3">

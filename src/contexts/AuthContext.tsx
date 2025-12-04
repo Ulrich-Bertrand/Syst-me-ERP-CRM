@@ -1,6 +1,9 @@
+"use client"
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api.config';
+import { useRouter } from 'next/navigation';
 
 // Types
 interface User {
@@ -14,7 +17,7 @@ interface User {
   active: boolean;
   
   // Profils Achats
-  profile_purchases_create_da?: boolean;
+  profile_purchases_create?: boolean;
   profile_purchases_validate_level_1?: boolean;
   profile_purchases_validate_level_2?: boolean;
   profile_purchases_validate_level_3?: boolean;
@@ -71,6 +74,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter()
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [agence, setAgence] = useState<string>('GHANA');
@@ -89,6 +93,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (storedToken && storedUser) {
           setToken(storedToken);
           setUser(JSON.parse(storedUser));
+        }else {
+          router.push("/")
         }
 
         if (storedAgence) {
@@ -169,7 +175,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.removeItem(LANGUE_KEY);
 
     // Rediriger vers login
-    // router.push('/login');
+    router.push('/', {scroll: true});
   };
 
   /**

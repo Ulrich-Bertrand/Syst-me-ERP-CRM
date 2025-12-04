@@ -150,7 +150,7 @@ const changeLangue = (newLangue: string) => {
 **AuthContext** :
 ```typescript
 // Vérifier UN profil
-hasProfile('profile_purchases_create_da') // true/false
+hasProfile('profile_purchases_create') // true/false
 
 // Vérifier AU MOINS UN profil
 hasAnyProfile([
@@ -163,7 +163,7 @@ hasAnyProfile([
 **ProtectedRoute** :
 ```typescript
 // Page créer DA
-<ProtectedRoute requiredProfile="profile_purchases_create_da">
+<ProtectedRoute requiredProfile="profile_purchases_create">
   <CreerDemandeAchatPage />
 </ProtectedRoute>
 
@@ -400,7 +400,7 @@ User clique "Demandes d'achat"
   ↓
 ProtectedRoute vérifie:
   - isAuthenticated? ✅
-  - hasProfile('profile_purchases_create_da')? ✅
+  - hasProfile('profile_purchases_create')? ✅
   ↓
 Affiche page
 ```
@@ -468,7 +468,7 @@ profils: Tous ✅
 // Compte 2 : Demandeur simple
 email: demandeur@jocyderklogistics.com
 password: password123
-profils: profile_purchases_create_da uniquement
+profils: profile_purchases_create uniquement
 
 // Compte 3 : Validateur N1
 email: validator1@jocyderklogistics.com

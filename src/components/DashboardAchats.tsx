@@ -1,3 +1,6 @@
+'use client';
+
+
 import { useState } from 'react';
 import { 
   TrendingUp, TrendingDown, FileText, CheckCircle, 
@@ -7,8 +10,8 @@ import {
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { useApi } from '../hooks/useApi';
-import { reportingApi } from '../services/api';
 import { formaterMontant, formaterPourcentage, formaterDuree } from '../types/reporting';
+import { reportingApi } from '@/services/api/reporting.api';
 
 export function DashboardAchats() {
   const [periodeSelectionnee, setPeriodeSelectionnee] = useState('mois');
@@ -43,6 +46,9 @@ export function DashboardAchats() {
   const { data: dashboardData, loading, error, refetch } = useApi(
     () => reportingApi.getDashboard(getDatesFromPeriode(periodeSelectionnee))
   );
+
+  console.log(dashboardData, "......essay");
+  
   
   // Recharger quand période change
   const handlePeriodeChange = (nouvellePeriode: string) => {

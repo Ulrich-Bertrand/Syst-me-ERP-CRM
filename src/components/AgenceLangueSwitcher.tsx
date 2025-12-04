@@ -1,3 +1,6 @@
+"use client"
+
+
 import { useState } from 'react';
 import { Building2, Globe, Check } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';

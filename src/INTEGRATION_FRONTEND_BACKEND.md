@@ -322,7 +322,7 @@ export function ProtectedRoute({
 **Utilisation** :
 
 ```typescript
-<ProtectedRoute requiredProfile="profile_purchases_create_da">
+<ProtectedRoute requiredProfile="profile_purchases_create">
   <CreateDemandePage />
 </ProtectedRoute>
 ```
@@ -349,7 +349,7 @@ const requireProfile = (profileName) => {
 router.post(
   '/demandes',
   authenticateJWT,
-  requireProfile('profile_purchases_create_da'),
+  requireProfile('profile_purchases_create'),
   demandesController.create
 );
 ```
@@ -410,7 +410,7 @@ async create(data: CreateDemandeRequest) {
 router.post(
   '/',
   authenticateJWT,                              // ✅ Vérifie token
-  requireProfile('profile_purchases_create_da'), // ✅ Vérifie profil
+  requireProfile('profile_purchases_create'), // ✅ Vérifie profil
   validate(createDemandeSchema),                 // ✅ Valide données
   demandesController.create                      // ✅ Exécute logique
 );

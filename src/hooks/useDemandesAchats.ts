@@ -22,7 +22,7 @@ import {
   GetDemandesFilters,
   PaginatedResponse
 } from '../types/achats-api.types';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export function useDemandesAchats() {
   // ========== STATE ==========
@@ -68,15 +68,18 @@ export function useDemandesAchats() {
     try {
       setLoading(true);
       
-      console.log('[useDemandesAchats] Appel GET /api/demandes avec filtres:', filters);
+      // console.log('[useDemandesAchats] Appel GET /api/demandes avec filtres:', filters);
       
       const response: PaginatedResponse<DemandeAchatListe> = await demandesApi.getAll(filters);
       
-      console.log('[useDemandesAchats] Réponse API:', {
-        total: response.total,
-        count: response.data.length,
-        page: response.page
-      });
+      // console.log('[useDemandesAchats] Réponse API:', {
+      //   total: response.total,
+      //   count: response.data.length,
+      //   page: response.page
+      // });
+
+      console.log(response, "........ demandes achats");
+      
       
       // Mettre à jour state
       setDemandes(response.data);
@@ -187,25 +190,25 @@ export function useDemandesAchats() {
    * GESTION ERREURS:
    *   - 400: Validation échouée → toast.error (détails champs)
    *   - 401: Non authentifié → redirect login
-   *   - 403: Profil requis (profile_purchases_create_da) → toast.error
+   *   - 403: Profil requis (profile_purchases_create) → toast.error
    */
   const createDemande = useCallback(async (data: CreateDemandeRequest) => {
     try {
       setLoading(true);
       
-      console.log('[useDemandesAchats] Appel POST /api/demandes avec data:', {
-        agence: data.agence,
-        type: data.type,
-        objet: data.objet,
-        nb_lignes: data.lignes.length
-      });
+      // console.log('[useDemandesAchats] Appel POST /api/demandes avec data:', {
+      //   agence: data.agence,
+      //   type: data.type,
+      //   objet: data.objet,
+      //   nb_lignes: data.lignes.length
+      // });
       
       const response = await demandesApi.create(data);
       
-      console.log('[useDemandesAchats] Demande créée:', {
-        id: response.data.id,
-        reference: response.data.reference
-      });
+      // console.log('[useDemandesAchats] Demande créée:', {
+      //   id: response.data.id,
+      //   reference: response.data.reference
+      // });
       
       toast.success(response.message || 'Demande créée avec succès !');
       
